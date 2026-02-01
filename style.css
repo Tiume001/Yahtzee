@@ -89,9 +89,11 @@ button:active {
 .btn-primary {
     background: var(--accent-color);
     color: white;
-    padding: 16px 32px;
+    padding: 12px 24px;
+    /* Reduced padding */
     border-radius: var(--radius-lg);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    /* Slightly smaller font */
     font-weight: 600;
     width: 100%;
     box-shadow: var(--shadow-glow);
