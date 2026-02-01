@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Yahtzee Moderno</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#0f172a">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Setup Screen -->
+        <section id="setup-screen" class="active-screen">
+            <h1 class="logo">YAHTZEE</h1>
+            <div class="card setup-card">
+                <h2>Nuova Partita</h2>
+                <div class="player-input-group">
+                    <label for="player-count">Numero di Giocatori</label>
+                    <div class="number-control">
+                        <button id="btn-decrease-players" class="icon-btn">-</button>
+                        <span id="player-count-display">1</span>
+                        <button id="btn-increase-players" class="icon-btn">+</button>
+                    </div>
+                </div>
+                <div id="player-names-container">
+                    <!-- Player name inputs will be generated here -->
+                </div>
+                <button id="btn-start-game" class="btn-primary">Inizia Gioco</button>
+            </div>
+        </section>
+
+        <!-- Game Screen -->
+        <section id="game-screen" class="hidden">
+            <header class="game-header">
+                <button id="btn-back-home" class="icon-btn-small">←</button>
+                <div class="turn-info">
+                    <span id="current-player-name">Player 1</span>
+                    <span id="current-round">Round 1/13</span>
+                </div>
+                <button id="btn-show-scores" class="icon-btn-small">📊</button>
+            </header>
+
+            <main class="game-board">
+                <!-- Scoreboard (Moved to Top) -->
+                <div class="scoreboard-container">
+                    <table id="live-scoreboard">
+                        <thead>
+                            <tr id="scoreboard-header-row">
+                                <!-- Headers generated dynamically -->
+                            </tr>
+                        </thead>
+                        <tbody id="scoreboard-body">
+                            <!-- Rows generated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Game Controls Wrapper (Dice + Buttons) -->
+                <div class="game-controls-wrapper">
+                    <!-- Dice Area -->
+                    <div class="dice-container">
+                        <div class="dice-wrapper">
+                            <div class="die" data-index="0" data-value="1"></div>
+                            <div class="die" data-index="1" data-value="2"></div>
+                            <div class="die" data-index="2" data-value="3"></div>
+                            <div class="die" data-index="3" data-value="4"></div>
+                            <div class="die" data-index="4" data-value="5"></div>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="controls-area">
+                        <button id="btn-roll" class="btn-primary btn-large">TIRA I DADI</button>
+                    </div>
+                </div>
+            </main>
+        </section>
+
+        <!-- Game Over Modal -->
+        <div id="game-over-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Partita Terminata!</h2>
+                    <button id="btn-restart" class="icon-btn">↻</button>
+                </div>
+                <div class="winner-display">
+                    <span class="winner-trophy">🏆</span>
+                    <h3 id="winner-name">Player 1</h3>
+                    <p id="winner-score">Score: 200</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

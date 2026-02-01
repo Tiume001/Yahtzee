@@ -1,0 +1,732 @@
+:root {
+    /* Colors */
+    --bg-color: #0f172a;
+    /* Slate 900 */
+    --card-bg: #1e293b;
+    /* Slate 800 */
+    --text-primary: #f8fafc;
+    /* Slate 50 */
+    --text-secondary: #94a3b8;
+    /* Slate 400 */
+    --accent-color: #6366f1;
+    /* Indigo 500 */
+    --accent-hover: #4f46e5;
+    /* Indigo 600 */
+    --accent-glow: rgba(99, 102, 241, 0.4);
+    --die-bg: #ffffff;
+    --die-dot: #0f172a;
+    --die-selected: #ef4444;
+    /* Red 500 for hold */
+    --success: #22c55e;
+    /* Green 500 */
+
+    /* Spacing & UI */
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 8px;
+    --shadow-gentle: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-glow: 0 0 20px var(--accent-glow);
+
+    /* Font */
+    --font-main: 'Outfit', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    /* Prevent scrolling on body, handle in containers */
+}
+
+#app {
+    width: 100%;
+    max-width: 600px;
+    height: 100vh;
+    /* Viewport height dependent */
+    height: 100dvh;
+    /* Dynamic viewport height for mobile */
+    position: relative;
+    background: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Typography */
+h1,
+h2,
+h3 {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Buttons */
+button {
+    cursor: pointer;
+    border: none;
+    font-family: var(--font-main);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: white;
+    padding: 16px 32px;
+    border-radius: var(--radius-lg);
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 100%;
+    box-shadow: var(--shadow-glow);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.icon-btn {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn-small {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--card-bg);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+}
+
+/* Sections */
+section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* Setup Screen */
+#setup-screen {
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.logo {
+    font-size: 4rem;
+    background: linear-gradient(135deg, var(--accent-color), #a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+}
+
+.setup-card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-shadow: var(--shadow-gentle);
+}
+
+.player-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.number-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-color);
+    padding: 8px;
+    border-radius: 100px;
+}
+
+#player-count-display {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Game Screen */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.turn-info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#current-player-name {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+#current-round {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.game-board {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    /* Allow scrolling within game board */
+    padding-bottom: 20px;
+}
+
+/* Wrapper for Dice and Controls to keep them together at bottom of flow */
+.game-controls-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* Reduced gap */
+
+    width: 100%;
+}
+
+/* Dice Container */
+.dice-container {
+    background: var(--card-bg);
+    padding: 10px;
+    /* Reduced padding */
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dice-wrapper {
+    display: flex;
+    gap: 8px;
+    /* Tighter gap */
+    flex-wrap: nowrap;
+    /* Force single row */
+    width: 100%;
+    justify-content: space-between;
+    /* Distribute evenly */
+}
+
+.die {
+    flex: 1;
+    /* Grow to fill space */
+    width: auto;
+    /* Let flex handle width */
+    max-width: 50px;
+    /* Smaller dice */
+    aspect-ratio: 1/1;
+    /* Keep square */
+    height: auto;
+    /* Aspect ratio handles this */
+    background: var(--die-bg);
+    border-radius: 12px;
+    display: grid;
+    grid-template-areas:
+        "a . c"
+        "e g f"
+        "h . i";
+    padding: 8px;
+    box-shadow: 0 4px 0 #cbd5e1;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    user-select: none;
+    position: relative;
+    gap: 4px;
+}
+
+.die.empty-die {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    cursor: default;
+}
+
+.die:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 transparent;
+}
+
+.die.held {
+    box-shadow: 0 0 0 3px var(--die-selected), 0 4px 0 #cbd5e1;
+    opacity: 0.9;
+    transform: translateY(2px);
+}
+
+.die.held::after {
+    content: '🔒';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 14px;
+    background: var(--bg-color);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--die-selected);
+}
+
+.die .dot {
+    background-color: var(--die-dot);
+    border-radius: 50%;
+    align-self: center;
+    justify-self: center;
+    width: 8px;
+    height: 8px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Dice Faces Layouts */
+.die[data-value="1"] {
+    grid-template-areas: ". . ." ". a ." ". . .";
+}
+
+.die[data-value="1"] .dot:nth-child(1) {
+    grid-area: a;
+    width: 12px;
+    height: 12px;
+}
+
+.die[data-value="2"] {
+    grid-template-areas: "a . ." ". . ." ". . b";
+}
+
+.die[data-value="2"] .dot:nth-child(1) {
+    grid-area: a;
+}
+
+.die[data-value="2"] .dot:nth-child(2) {
+    grid-area: b;
+}
+
+.die[data-value="3"] {
+    grid-template-areas: "a . ." ". b ." ". . c";
+}
+
+.die[data-value="3"] .dot:nth-child(1) {
+    grid-area: a;
+}
+
+.die[data-value="3"] .dot:nth-child(2) {
+    grid-area: b;
+}
+
+.die[data-value="3"] .dot:nth-child(3) {
+    grid-area: c;
+}
+
+.die[data-value="4"] {
+    grid-template-areas: "a . b" ". . ." "c . d";
+}
+
+.die[data-value="4"] .dot:nth-child(1) {
+    grid-area: a;
+}
+
+.die[data-value="4"] .dot:nth-child(2) {
+    grid-area: b;
+}
+
+.die[data-value="4"] .dot:nth-child(3) {
+    grid-area: c;
+}
+
+.die[data-value="4"] .dot:nth-child(4) {
+    grid-area: d;
+}
+
+.die[data-value="5"] {
+    grid-template-areas: "a . b" ". c ." "d . e";
+}
+
+.die[data-value="5"] .dot:nth-child(1) {
+    grid-area: a;
+}
+
+.die[data-value="5"] .dot:nth-child(2) {
+    grid-area: b;
+}
+
+.die[data-value="5"] .dot:nth-child(3) {
+    grid-area: c;
+}
+
+.die[data-value="5"] .dot:nth-child(4) {
+    grid-area: d;
+}
+
+.die[data-value="5"] .dot:nth-child(5) {
+    grid-area: e;
+}
+
+.die[data-value="6"] {
+    grid-template-areas: "a . b" "c . d" "e . f";
+}
+
+.die[data-value="6"] .dot:nth-child(1) {
+    grid-area: a;
+}
+
+.die[data-value="6"] .dot:nth-child(2) {
+    grid-area: b;
+}
+
+.die[data-value="6"] .dot:nth-child(3) {
+    grid-area: c;
+}
+
+.die[data-value="6"] .dot:nth-child(4) {
+    grid-area: d;
+}
+
+.die[data-value="6"] .dot:nth-child(5) {
+    grid-area: e;
+}
+
+.die[data-value="6"] .dot:nth-child(6) {
+    grid-area: f;
+}
+
+
+/* Removed .roll-status styles */
+
+/* Controls */
+.controls-area {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+/* Removed .suggestion-box styles */
+
+/* Scoreboard (Always Visible) */
+.scoreboard-container {
+    width: 100%;
+    /* flex: 2; Removed to allow full height */
+    height: auto;
+    flex: 0 0 auto;
+    /* Do not shrink, take full content height */
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 10px;
+    overflow-x: auto;
+    /* Scroll horizontally on small screens */
+    box-shadow: var(--shadow-gentle);
+    margin-bottom: 20px;
+}
+
+#live-scoreboard {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.85rem;
+    min-width: 300px;
+}
+
+#live-scoreboard th,
+#live-scoreboard td {
+    padding: 6px 4px;
+    /* Reduced padding */
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    white-space: nowrap;
+}
+
+#live-scoreboard th {
+    position: sticky;
+    top: 0;
+    background: var(--card-bg);
+    z-index: 10;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+#live-scoreboard th:first-child,
+#live-scoreboard td:first-child {
+    text-align: left;
+    position: sticky;
+    left: 0;
+    background: var(--card-bg);
+    z-index: 20;
+    /* Higher z-index for corner */
+    font-weight: 600;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Current Player Column Highlight */
+.current-player-col {
+    background: rgba(99, 102, 241, 0.1);
+    border-left: 1px solid var(--accent-glow);
+    border-right: 1px solid var(--accent-glow);
+}
+
+th.current-player-col {
+    color: var(--accent-color);
+}
+
+/* Interactive Cells */
+.score-cell {
+    transition: all 0.2s;
+    border-radius: 4px;
+    /* Slight radius for hover effect inside cell */
+}
+
+.score-cell.selectable {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.score-cell.selectable:hover {
+    background: rgba(99, 102, 241, 0.2);
+}
+
+.score-preview {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+.score-filled {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Responsive adjustments for game board layout */
+@media (min-width: 768px) {
+    .game-board {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .dice-container,
+    .controls-area {
+        flex: 1;
+        max-width: 300px;
+    }
+
+    .main-left {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        flex: 1;
+    }
+
+    .scoreboard-container {
+        flex: 1.5;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+}
+
+/* Score Selector */
+.score-selector-container {
+    flex: 1;
+    overflow-y: auto;
+    background: var(--card-bg);
+    /* Use card background */
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding: 20px;
+    margin: 0 -20px -20px -20px;
+    /* Stretch to bottom */
+}
+
+.input-label {
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.score-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding-bottom: 40px;
+    /* Safe area for scrolling */
+}
+
+.score-option {
+    background: var(--bg-color);
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.score-option:hover {
+    border-color: var(--accent-color);
+}
+
+.score-option.filled {
+    opacity: 0.5;
+    pointer-events: none;
+    /* Disabled */
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.score-val {
+    font-weight: 700;
+}
+
+.score-preview {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 500px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+}
+
+.modal-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.table-container {
+    overflow-y: auto;
+    padding: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+th,
+td {
+    padding: 12px 16px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+th {
+    background: rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    color: var(--text-secondary);
+    position: sticky;
+    top: 0;
+}
+
+td:first-child,
+th:first-child {
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Animations */
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(5deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.shake-anim {
+    animation: shake 0.3s ease-in-out infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 380px) {
+    .die {
+        width: 50px;
+        height: 50px;
+    }
+}
