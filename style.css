@@ -216,7 +216,8 @@ section {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 4px;
+    /* Minimal gap */
     overflow-y: auto;
     /* Allow scrolling within game board */
     padding-bottom: 20px;
@@ -464,7 +465,8 @@ section {
     overflow-x: auto;
     /* Scroll horizontally on small screens */
     box-shadow: var(--shadow-gentle);
-    margin-bottom: 20px;
+    margin-bottom: 4px;
+    /* Minimal margin */
 }
 
 #live-scoreboard {
